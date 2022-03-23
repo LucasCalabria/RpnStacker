@@ -1,14 +1,14 @@
-import java.util.Stack;
 import java.io.File;
+import java.util.Stack;
 import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args){
-        String diretorioPath = "C:\\Users\\Lucas\\Desktop\\ops.txt";
+        String arquivoPath = "ops.txt";
         Stack<Integer> pilha = new Stack<>();
 
         try {
-            File myObj = new File(diretorioPath);
+            File myObj = new File(arquivoPath);
             Scanner myReader = new Scanner(myObj);
 
             while (myReader.hasNextLine()) {
@@ -32,9 +32,7 @@ public class Main {
         }
     }
 
-    private static boolean isNumeric(String str) {
-        return str.matches("\\d+");
-    }
+    private static boolean isNumeric(String str) { return str.matches("\\d+"); }
 
     private static int solve(int numA, int numB, String op) throws Exception {
         if (op.equals("+")){ return numA + numB; }
