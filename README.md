@@ -1,3 +1,3 @@
 # RpnStacker
 
-Alterar o caminho da variavel diretorioPath na Main para o caminho de ops.txt
+Entrada lida do arquivo ops.txt que está na pasta principal do projeto
