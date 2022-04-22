@@ -74,6 +74,6 @@ public class Main {
             if (data.equals("/")){ return new Token(TokenType.SLASH, data); }
         }
 
-        throw new Exception ("Error: Unexpected character:" + data);
+        throw new Exception ("Error: Unexpected character: " + data);
     }
 }
