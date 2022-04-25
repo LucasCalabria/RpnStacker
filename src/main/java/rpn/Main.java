@@ -21,20 +21,17 @@ public class Main {
                 Token tolken = scanner(data);
                 tokenStack.add(tolken);
 
-                System.out.println(tolken.toString());
+                System.out.println(tolken);
             }
 
             while (tokenStack.size() != 1){
                 Token data = tokenStack.remove(0);
                 if (data.type == TokenType.NUM){
-                    int numA = Integer.parseInt(data.lexeme);
-                    int numB = Integer.parseInt(tokenStack.remove(0).lexeme);
+                    Token numA = tokenStack.remove(0);
 
-                    String op = tokenStack.remove(0).lexeme;
+                    Token op = tokenStack.remove(0);
 
-                    int resp = solve(numA, numB, op);
-
-                    tokenStack.add(0, new Token(TokenType.NUM, String.valueOf(resp)));
+                    tokenStack.add(0, solve(numA, data, op));
                 }
                 else{
                     throw new Exception("Error: not a number: " + data.lexeme);
@@ -53,13 +50,18 @@ public class Main {
 
     private static boolean isop(String str) { return str.matches("\\+|\\*|-|/"); }
 
-    private static int solve(int numA, int numB, String op) throws Exception {
-        if (op.equals("+")){ return numA + numB; }
-        if (op.equals("-")){ return numA - numB; }
-        if (op.equals("*")){ return numA * numB; }
-        if (op.equals("/")){ return numA / numB; }
+    private static Token solve(Token tokenNumA, Token tokenNumB, Token op) throws Exception {
+        String result = "";
 
-        throw new Exception("Operacao invalida");
+        int numA = Integer.parseInt(tokenNumA.lexeme);
+        int numB = Integer.parseInt(tokenNumB.lexeme);
+
+        if (op.type.equals(TokenType.PLUS)){  result = String.valueOf(numA + numB); }
+        if (op.type.equals(TokenType.MINUS)){ result = String.valueOf(numA - numB); }
+        if (op.type.equals(TokenType.STAR)){  result = String.valueOf(numA * numB); }
+        if (op.type.equals(TokenType.SLASH)){ result = String.valueOf(numA / numB); }
+
+        return new Token(TokenType.NUM, result);
     }
 
     private static Token scanner(String data) throws Exception {
@@ -67,9 +69,9 @@ public class Main {
             return new Token(TokenType.NUM, data);
         }
         if (isop(data)){
-            if (data.equals("+")){ return new Token(TokenType.PLUS, data); }
+            if (data.equals("+")){ return new Token(TokenType.PLUS,  data); }
             if (data.equals("-")){ return new Token(TokenType.MINUS, data); }
-            if (data.equals("*")){ return new Token(TokenType.STAR, data); }
+            if (data.equals("*")){ return new Token(TokenType.STAR,  data); }
             if (data.equals("/")){ return new Token(TokenType.SLASH, data); }
         }
 
