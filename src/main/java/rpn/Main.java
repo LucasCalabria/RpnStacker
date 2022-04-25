@@ -14,7 +14,6 @@ public class Main {
             File myObj = new File(arquivoPath);
             Scanner myReader = new Scanner(myObj);
 
-
             while (myReader.hasNextLine()) {
                 String data = myReader.nextLine();
 
@@ -27,11 +26,11 @@ public class Main {
             while (tokenStack.size() != 1){
                 Token data = tokenStack.remove(0);
                 if (data.type == TokenType.NUM){
-                    Token numA = tokenStack.remove(0);
+                    Token numB = tokenStack.remove(0);
 
                     Token op = tokenStack.remove(0);
 
-                    tokenStack.add(0, solve(numA, data, op));
+                    tokenStack.add(0, solve(data, numB, op));
                 }
                 else{
                     throw new Exception("Error: not a number: " + data.lexeme);
